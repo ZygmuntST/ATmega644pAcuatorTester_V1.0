@@ -35,7 +35,7 @@
 // tu ustalamy za pomoc¹ zera lub jedynki czy sterujemy pinem RW
 //	0 - pin RW pod³¹czony na sta³e do GND
 //	1 - pin RW pod³¹czony do mikrokontrolera
-#define USE_RW 0
+#define USE_RW 1
 
 //----------------------------------------------------------------------------------------
 //

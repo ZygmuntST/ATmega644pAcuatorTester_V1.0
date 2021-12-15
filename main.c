@@ -22,10 +22,10 @@
 
 void MCU_INIT( void );
 
-void KeyDn_Handler();
-void KeyUp_Handler();
-void KeyMenu_Handler();
-void KeyExit_Handler();
+void KeyDn_Handler( void );
+void KeyUp_Handler( void );
+void KeyMenu_Handler( void );
+void KeyExit_Handler( void );
 
 void MenuProcess( void );
 void SecondTick( void );
@@ -143,6 +143,8 @@ void MCU_INIT( void ){
 	LED2_INIT;
 	LED3_INIT;
 	LCD_BACKLIGHT_INIT;
+	LCD_BACKLIGHT_ON;
+
 
 	_delay_ms( 100 );
 
@@ -157,7 +159,6 @@ void MCU_INIT( void ){
 	Keyboard_Init();
 //****************************************************************************
 
-	LCD_BACKLIGHT_ON;
 	lcd_init();
 
 	ScrStaticTextLoc(">---LINIA  0---<", 0, 0);
@@ -268,7 +269,7 @@ void SecondTick( void ){
 }
 
 //------------------Obs³uga klawiszy-------------------
-void KeyUp_Handler(){
+void KeyUp_Handler( void ){
 	if( (menuPos > 0) && ( menuShift == idle ) ){
 		menuPos--;
 	}
@@ -303,7 +304,7 @@ void KeyUp_Handler(){
 	menuStatus = changed;
 }
 
-void KeyDn_Handler(){
+void KeyDn_Handler( void ){
 	if( (menuPos < 4) && (menuShift == idle) ){
 		menuPos++;
 	}
@@ -339,14 +340,13 @@ void KeyDn_Handler(){
 
 }
 
-
-void KeyMenu_Handler(){
+void KeyMenu_Handler( void ){
 	if( menuShift == idle ) {menuShift = shifted;} else {menuShift = idle;}
 	menuStatus = changed;
 
 }
 
-void KeyExit_Handler(){
+void KeyExit_Handler( void ){
 	menuStatus = changed;
 }
 
