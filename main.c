@@ -297,6 +297,10 @@ void KeyUp_Handler( void ){
 			ActProcess.postoj++;
 			break;
 
+		case 5:
+			break;
+
+
 		}
 
 	}//-----------------------------------------
@@ -305,7 +309,7 @@ void KeyUp_Handler( void ){
 }
 
 void KeyDn_Handler( void ){
-	if( (menuPos < 4) && (menuShift == idle) ){
+	if( (menuPos < 6) && (menuShift == idle) ){
 		menuPos++;
 	}
 
@@ -330,6 +334,10 @@ void KeyDn_Handler( void ){
 
 		case 4:
 			if(ActProcess.postoj > 2) ActProcess.postoj--;
+			break;
+
+		case 5:
+
 			break;
 
 
@@ -411,6 +419,15 @@ void MenuProcess( void ){
 				tmp = ActProcess.postoj;
 				ScrVarLoc( &tmp, 11, 1, 2);
 				break;
+
+			case 5:
+				ScrStaticTextLoc(" Postoj         ", 0, 0);
+				ScrStaticTextLoc(">Zapisz ustaw.  ", 0, 1);
+
+				tmp = ActProcess.postoj;
+				ScrVarLoc( &tmp, 11, 0, 2);
+
+				break;
 			}//-----------------------------endswitch-------------------
 		}//----------------------endif-----------------------------------
 
@@ -470,6 +487,15 @@ void MenuProcess( void ){
 
 				tmp = ActProcess.postoj;
 				ScrVarLoc( &tmp, 11, 1, 2);
+				break;
+
+			case 5:
+				ScrStaticTextLoc(" Postoj         ", 0, 0);
+				ScrStaticTextLoc(">Zapisz ustaw.  ", 0, 1);
+
+				tmp = ActProcess.postoj;
+				ScrVarLoc( &tmp, 11, 0, 2);
+
 				break;
 
 
