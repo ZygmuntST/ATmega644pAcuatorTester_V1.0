@@ -11,12 +11,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <stdlib.h>
 
 #include "mGlobal/mglobal.h"
 #include "LCD/lcd44780.h"
 #include "mLcdScreenEngineV2/mLcdScreenEngineV2.h"
 #include "mKeyboard/mKeyboard.h"
 #include "mActuatorAlgorithm/mActuatorAlgorithm.h"
+#include "avr/eeprom.h"
 
 //C_CO PA5 -> Czujnik temperatury
 
@@ -188,7 +190,8 @@ void MCU_INIT( void ){
 	P_CO_OFF;
 	P_CWU_OFF;
 
-	RestoreDefault();
+//	RestoreDefault();
+	RestoreSetings_E();
 	MenuProcess();
 
 	sei();
@@ -300,7 +303,6 @@ void KeyUp_Handler( void ){
 		case 5:
 			break;
 
-
 		}
 
 	}//-----------------------------------------
@@ -309,7 +311,7 @@ void KeyUp_Handler( void ){
 }
 
 void KeyDn_Handler( void ){
-	if( (menuPos < 6) && (menuShift == idle) ){
+	if( (menuPos < 5) && (menuShift == idle) ){
 		menuPos++;
 	}
 
@@ -349,9 +351,20 @@ void KeyDn_Handler( void ){
 }
 
 void KeyMenu_Handler( void ){
-	if( menuShift == idle ) {menuShift = shifted;} else {menuShift = idle;}
-	menuStatus = changed;
 
+
+//----------------------------pozycja zapisu w eepromie-----------------------------
+	if( menuPos == 5 ){
+		LED0_ON;//--kontrolka zapisu w eepromie
+		SaveSetings_E();
+		LED0_OFF;
+	} else {
+
+		if( menuShift == idle ) {menuShift = shifted;} else {menuShift = idle;}
+		menuStatus = changed;
+
+	}
+//----------------------------------------------------------------------------------
 }
 
 void KeyExit_Handler( void ){
@@ -361,6 +374,7 @@ void KeyExit_Handler( void ){
 void MenuProcess( void ){
 
 	uint16_t tmp;
+
 		if( menuShift == idle ){
 			switch( menuPos ){
 
@@ -498,12 +512,14 @@ void MenuProcess( void ){
 
 				break;
 
-
 			}
-
 
 		}
 
+//		tmp = menuPos;
+//
+//		ScrStaticTextLoc( "  ", 14, 1 );
+//		ScrVarLoc(&tmp, 15, 1, 1);
 }
 //----------------------------------------------------
 

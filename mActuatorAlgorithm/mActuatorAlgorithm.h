@@ -26,8 +26,12 @@ typedef struct T_ACT_PROCESS{
 
 }T_ACT_PROCESS;
 
+
 T_ACT_PROCESS ActProcess;
+T_ACT_PROCESS ActProcess_EEMEM;
 
 void RestoreDefault( void );
+void RestoreSetings_E( void );
+void SaveSetings_E( void );
 
 #endif /* MACTUATORALGORITHM_MACTUATORALGORITHM_H_ */
