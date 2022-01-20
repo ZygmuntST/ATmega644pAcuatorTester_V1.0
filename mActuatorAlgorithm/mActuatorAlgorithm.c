@@ -25,6 +25,7 @@ void RestoreDefault( void ){
 	ActProcess.kierunek = left;
 
 	ActProcess.stan = disabled;
+	ActProcess.autostart = disabled;
 
 }
 

@@ -23,6 +23,7 @@ typedef struct T_ACT_PROCESS{
 	uint8_t kierunek;
 
 	uint8_t stan;
+	uint8_t autostart;
 
 }T_ACT_PROCESS;
 

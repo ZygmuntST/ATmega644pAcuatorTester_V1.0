@@ -196,6 +196,10 @@ void MCU_INIT( void ){
 
 	sei();
 
+	if(ActProcess.autostart == enabled){
+		KeyMenu_Handler();
+	}
+
 }//end MCU INIT
 
 void SecondTick( void ){
@@ -301,6 +305,9 @@ void KeyUp_Handler( void ){
 			break;
 
 		case 5:
+			ActProcess.autostart = enabled;
+			break;
+		case 6:
 			break;
 
 		}
@@ -311,7 +318,7 @@ void KeyUp_Handler( void ){
 }
 
 void KeyDn_Handler( void ){
-	if( (menuPos < 5) && (menuShift == idle) ){
+	if( (menuPos < 6) && (menuShift == idle) ){
 		menuPos++;
 	}
 
@@ -339,7 +346,10 @@ void KeyDn_Handler( void ){
 			break;
 
 		case 5:
+			ActProcess.autostart = disabled;
+			break;
 
+		case 6:
 			break;
 
 
@@ -354,7 +364,7 @@ void KeyMenu_Handler( void ){
 
 
 //----------------------------pozycja zapisu w eepromie-----------------------------
-	if( menuPos == 5 ){
+	if( menuPos == 6 ){
 		LED0_ON;//--kontrolka zapisu w eepromie
 		SaveSetings_E();
 		LED0_OFF;
@@ -435,11 +445,28 @@ void MenuProcess( void ){
 				break;
 
 			case 5:
-				ScrStaticTextLoc(" Postoj         ", 0, 0);
+				ScrStaticTextLoc(" Postoj:        ", 0, 0);
+				ScrStaticTextLoc(">Autostart:     ", 0, 1);
+
+				if( ActProcess.autostart == enabled ){
+					ScrStaticTextLoc( "T", 13, 1 );
+				} else {
+					ScrStaticTextLoc( "N", 13, 1 );
+				}
+				break;
+
+			case 6:
+				ScrStaticTextLoc(" Autostart:     ", 0, 0);
 				ScrStaticTextLoc(">Zapisz ustaw.  ", 0, 1);
 
-				tmp = ActProcess.postoj;
-				ScrVarLoc( &tmp, 11, 0, 2);
+//				tmp = ActProcess.postoj;
+//				ScrVarLoc( &tmp, 11, 0, 2);
+
+				if( ActProcess.autostart == enabled ){
+					ScrStaticTextLoc( "T", 13, 0 );
+				} else {
+					ScrStaticTextLoc( "N", 13, 0 );
+				}
 
 				break;
 			}//-----------------------------endswitch-------------------
@@ -504,11 +531,29 @@ void MenuProcess( void ){
 				break;
 
 			case 5:
-				ScrStaticTextLoc(" Postoj         ", 0, 0);
+				ScrStaticTextLoc(" Postoj:        ", 0, 0);
+				ScrStaticTextLoc(" Autostart: >   ", 0, 1);
+
+				if( ActProcess.autostart == enabled ){
+					ScrStaticTextLoc( "T", 13, 1 );
+				} else {
+					ScrStaticTextLoc( "N", 13, 1 );
+				}
+
+				break;
+
+			case 6:
+				ScrStaticTextLoc(" Autostart:     ", 0, 0);
 				ScrStaticTextLoc(">Zapisz ustaw.  ", 0, 1);
 
-				tmp = ActProcess.postoj;
-				ScrVarLoc( &tmp, 11, 0, 2);
+//				tmp = ActProcess.postoj;
+//				ScrVarLoc( &tmp, 11, 0, 2);
+
+				if( ActProcess.autostart == enabled ){
+					ScrStaticTextLoc( "T", 13, 0 );
+				} else {
+					ScrStaticTextLoc( "N", 13, 0 );
+				}
 
 				break;
 
